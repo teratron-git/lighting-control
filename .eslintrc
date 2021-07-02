@@ -1,0 +1,9 @@
+{
+	"extends": ["prettier"],
+	"rules": {
+		"jsx-quotes": [1, "prefer-double"],
+		"react/react-in-jsx-scope": "off"
+	},
+	"plugins": ["prettier"],
+	"parser": "babel-eslint"
+}
