@@ -23,8 +23,6 @@ export const sendDataToServer = async (url, data) => {
       body: data,
     });
     let result = await response.json();
-    if (response.ok) {
-    }
     return result;
   } catch (error) {
     throw new Error('Нет соединения с сервером!');
@@ -35,8 +33,6 @@ export const getDataFromServer = async (url) => {
   try {
     let response = await fetch(url);
     let result = await response.json();
-    if (response.ok) {
-    }
     return result;
   } catch (error) {
     throw new Error('Нет соединения с сервером!');
@@ -123,25 +119,25 @@ function* allLightsSaga() {
   }
 }
 
-function* changeLightSaga() {
-  let result = {
-    lights: [
-      {
-        id: '1',
-        type: 'Марка1',
-        location: 'Калуга',
-        isOn: true,
-        manager: 'петя',
-      },
-      {
-        id: '2',
-        type: 'Марка2',
-        location: 'Калуга2',
-        isOn: false,
-        manager: 'вася',
-      },
-    ],
-  };
-  console.log('changeLightSaga', result);
-  yield put(data(result));
-}
+// function* changeLightSaga() {
+//   let result = {
+//     lights: [
+//       {
+//         id: '1',
+//         type: 'Марка1',
+//         location: 'Калуга',
+//         isOn: true,
+//         manager: 'петя',
+//       },
+//       {
+//         id: '2',
+//         type: 'Марка2',
+//         location: 'Калуга2',
+//         isOn: false,
+//         manager: 'вася',
+//       },
+//     ],
+//   };
+//   console.log('changeLightSaga', result);
+//   yield put(data(result));
+// }
