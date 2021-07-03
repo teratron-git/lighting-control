@@ -12,7 +12,7 @@ const Light = (props) => {
   let { lights, changeLight, data, isAdmin } = props;
 
   useEffect(() => {
-    data({});
+    // data({});
     setOn(!!props.props.data.id);
     setOn(!!props.props.data.isOn);
   }, []);
@@ -28,7 +28,7 @@ const Light = (props) => {
   return (
     <div>
       {props.props.data.id} {props.props.data.type} {props.props.data.location}
-      {props.props.data.isOn ? 'ВКЛ' : 'ВЫКЛ'} {props.props.data.manager}
+      {props.props.data.isOn ? 'ВКЛ' : 'ВЫКЛ'} {props.props.data.managerId}
       {!(isAdmin == 'admin') ? (
         <span className="form-check form-switch">
           <input

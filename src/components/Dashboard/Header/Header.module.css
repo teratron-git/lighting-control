@@ -6,6 +6,7 @@
 	align-items: center;
 	justify-content: flex-end;*/
   height: 70px;
+  min-height: 70px;
   background-color: rgba(255, 255, 255, 0.7);
 }
 .title {
