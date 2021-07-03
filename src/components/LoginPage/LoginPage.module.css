@@ -2,4 +2,10 @@
   width: 500px;
   height: 300px;
   background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  align-items: center;
+  flex-direction: column;
 }

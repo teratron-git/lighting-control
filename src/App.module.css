@@ -1,6 +1,6 @@
 .app {
   text-align: center;
-  /* display: flex; */
+  display: flex;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
@@ -9,4 +9,11 @@
   flex-direction: column;
   align-content: center;
   color: #ffffff;
+  justify-content: center;
+  align-items: center;
+}
+
+.appDashboard {
+  align-content: flex-end;
+  justify-content: flex-start;
 }
