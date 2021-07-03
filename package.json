@@ -65,6 +65,5 @@
     "cz-customizable": {
       "config": "config/git/commitizen.js"
     }
-  },
-  "homepage": "."
+  }
 }
