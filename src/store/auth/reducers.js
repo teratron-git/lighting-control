@@ -5,13 +5,14 @@ let { logIn, logOut, logInSuccess, logInFailure, checkIsLogin, logInErrorReset }
 const sData = JSON.parse(localStorage.getItem('lighting-control')) || { isLoggedIn: false };
 
 const initialState = {
-  email: '',
+  id: '',
+  userName: '',
   password: '',
-  isLoggedIn: true,
+  isLoggedIn: false,
   isLogging: false,
   error: '',
   token: '',
-  role: 'user',
+  role: '',
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -19,8 +20,10 @@ export const authReducer = (state = initialState, action) => {
     case logIn.toString():
       return {
         ...state,
-        email: action.payload.email,
+        // id: action.payload.id,
+        userName: action.payload.userName,
         password: action.payload.password,
+        // role: action.payload.role,
         error: '',
         isLogging: true,
       };
@@ -32,39 +35,52 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: false,
         token: '',
+        role: '',
       };
 
-    // case checkIsLogin.toString():
-    //   if (sData.isLoggedIn) {
-    //     return {
-    //       ...state,
-    //       isLoggedIn: sData.isLoggedIn,
-    //       token: sData.token,
-    //     };
-    //   }
-    //   return state;
+    case checkIsLogin.toString():
+      if (sData.isLoggedIn) {
+        return {
+          ...state,
+          id: state.id || sData.id,
+          userName: state.userName || sData.userName,
+          isLoggedIn: state.isLoggedIn || sData.isLoggedIn,
+          token: sData.token,
+          role: state.role || sData.role,
+        };
+      }
+      return state;
 
-    // case logInSuccess.toString():
-    //   localStorage.setItem(
-    //     'lighting-control',
-    //     JSON.stringify({ isLoggedIn: action.payload.success, token: action.payload.token })
-    //   );
-    //   return {
-    //     ...state,
-    //     isLoggedIn: action.payload.success,
-    //     token: action.payload.token,
-    //     isLogging: false,
-    //   };
+    case logInSuccess.toString():
+      localStorage.setItem(
+        'lighting-control',
+        JSON.stringify({
+          isLoggedIn: true,
+          token: action.payload.token,
+          id: action.payload.id,
+          userName: action.payload.userName,
+          role: action.payload.role,
+        })
+      );
+      return {
+        ...state,
+        id: action.payload.id,
+        userName: action.payload.userName,
+        role: action.payload.role,
+        isLoggedIn: true,
+        token: action.payload.token,
+        isLogging: false,
+      };
 
-    // case logInFailure.toString():
-    //   return {
-    //     ...state,
-    //     error: action.payload,
-    //     isLogging: false,
-    //   };
+    case logInFailure.toString():
+      return {
+        ...state,
+        error: action.payload,
+        isLogging: false,
+      };
 
-    // case logInErrorReset.toString():
-    //   return { ...state, error: '' };
+    case logInErrorReset.toString():
+      return { ...state, error: '' };
 
     default:
       return state;

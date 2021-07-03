@@ -1,26 +1,16 @@
 import { actions } from './actions';
 
-let { data, changeLight } = actions;
+let { data, changeLight, addLight, updateDataSuccess, allLights } = actions;
 
 const sData = JSON.parse(localStorage.getItem('lighting-control')) || { isLoggedIn: false };
 
 const initialState = {
-  lights: [
-    {
-      id: '1',
-      type: 'Марка1',
-      location: 'Калуга',
-      isOn: false,
-      manager: 'Менеджер1',
-    },
-    {
-      id: '2',
-      type: 'Марка2',
-      location: 'Калуга2',
-      isOn: false,
-      manager: 'Менеджер2',
-    },
-  ],
+  type: '',
+  location: '',
+  isOn: '',
+  managerId: '',
+
+  lights: [],
 };
 
 export const dataReducer = (state = initialState, action) => {
@@ -29,7 +19,34 @@ export const dataReducer = (state = initialState, action) => {
       console.log('act', action);
       return {
         ...state,
+        type: action?.payload?.type,
+        location: action?.payload?.location,
+        isOn: action?.payload?.isOn,
+        managerId: action?.payload?.managerId,
+      };
+
+    case allLights.toString():
+      console.log('act', action);
+      return {
+        ...state,
         ...action.payload,
+      };
+
+    case addLight.toString():
+      console.log('act', action);
+      return {
+        ...state,
+        type: action.payload.type,
+        location: action.payload.location,
+        isOn: action.payload.isOn,
+        managerId: action.payload.managerId,
+      };
+
+    case updateDataSuccess.toString():
+      console.log('act', action);
+      return {
+        ...state,
+        lights: [...action.payload],
       };
 
     case changeLight.toString():
