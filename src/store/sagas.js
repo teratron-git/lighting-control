@@ -41,7 +41,7 @@ export const getDataFromServer = async (url) => {
 
 export function* rootSaga() {
   yield takeEvery(authConstants.LOGIN, logInSaga);
-  yield takeEvery(dataConstants.CHANGE_LIGHT, changeLightSaga);
+  // yield takeEvery(dataConstants.CHANGE_LIGHT, changeLightSaga);
   yield takeEvery(dataConstants.ADD_LIGHT, addLightSaga);
   yield takeEvery(dataConstants.ALL_LIGHTS, allLightsSaga);
 }
