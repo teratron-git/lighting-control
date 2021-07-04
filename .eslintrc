@@ -1,9 +1,29 @@
 {
-	"extends": ["prettier"],
-	"rules": {
-		"jsx-quotes": [1, "prefer-double"],
-		"react/react-in-jsx-scope": "off"
-	},
-	"plugins": ["prettier"],
-	"parser": "babel-eslint"
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "generators": false,
+      "objectLiteralDuplicateProperties": false
+    }
+  },
+
+  "globals": {
+    "$": false
+  },
+
+  "extends": "eslint:recommended",
+  "rules": {
+    "indent": [1, 2],
+    "quotes": [1, "single"],
+    "semi": [1, "always", { "omitLastInOneLineBlock": true }],
+    "no-unused-vars": "off"
+  }
 }

@@ -1,68 +1,14 @@
-div {
-  width: 100px;
+.loginForm_cred {
+  display: block;
   height: 100px;
+  font-size: 12px;
 }
 
-/* 
-.login-page__loginForm {
-	width: 50%;
+.title {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: darkgoldenrod;
 }
-
-.login-page__loginForm-item {
-	background-color: ivory;
-	width: 450px;
-	height: 507px;
-	font-size: 1.6em;
-	padding: 50px;
-	text-align: left;
-	position: relative;
-	border-radius: 1%;
+span {
+  line-height: 24px;
 }
-
-.header-form {
-	font-size: 3em;
-	font-weight: bold;
-	margin-bottom: 20px;
-}
-
-.header-form__add {
-	margin-bottom: 20px;
-}
-
-.header-form__add span {
-	cursor: pointer;
-	color: royalblue;
-	margin-left: 5px;
-}
-
-.button {
-	composes: button from '../../../index.css';
-	margin-top: 20px !important;
-}
-
-.input {
-	font-size: 2rem !important;
-}
-
-label {
-	font-size: 0.7em !important;
-	margin-top: 5px !important;
-}
-
-.error {
-	position: absolute;
-	color: red;
-	top: 420px;
-	left: 50px;
-	overflow: hidden;
-	max-width: 450px;
-	max-height: 65px;
-	display: inline-block;
-}
-
-.validateError {
-	font-size: 1rem;
-	color: red;
-	display: block;
-	min-height: 25px;
-} */

@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "lightbulb.png",
+      "src": "lightbulb_192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "lightbulb.png",
+      "src": "lightbulb_512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
