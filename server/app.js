@@ -1,18 +1,15 @@
-var express = require('express');
-var cors = require('cors');
-var app = express();
-const mysql = require('mysql2');
-const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const path = require('path');
-const bcrypt = require('bcrypt');
-const config = require('../config/serverConfig');
+let express = require('express');
+let cors = require('cors');
+let app = express();
+let mysql = require('mysql2');
+let bodyParser = require('body-parser');
+let urlencodedParser = bodyParser.urlencoded({ extended: false });
+let bcrypt = require('bcrypt');
+let config = require('../config/serverConfig');
 
 app.use(cors());
 app.options('*', cors());
-
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '..', 'build')));
 
 const connection = mysql.createPool({
   connectionLimit: 5,

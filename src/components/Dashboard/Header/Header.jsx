@@ -1,29 +1,24 @@
-import Button from 'react-bootstrap/Button';
-import styles from './Header.module.css';
 import classNames from 'classnames/bind';
-import Navbar from 'react-bootstrap/Navbar';
-import { getAdmin } from '../../../store/auth/selectors';
+import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import { actions } from '../../../store/auth/actions';
+import { getAdmin } from '../../../store/auth/selectors';
+import styles from './Header.module.css';
 
 const st = classNames.bind(styles);
 
-let { logOut } = actions;
-
 const Header = (props) => {
-  let { logOut } = props;
-  console.log('🚀 ~ file: Header.jsx ~ line 11 ~ Header ~ props', props);
+  let { logOut, isAdmin } = props;
 
   const clickHandler = (e) => {
     logOut();
-    console.log(props);
   };
 
   return (
     <div className={st('header')}>
       <div className={st('headerNavbar')} variant="dark">
         <div className={st('title')}>
-          {props.isAdmin == 'admin' ? 'ПАНЕЛЬ АДМИНИСТРАТОРА' : 'ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ'}
+          {isAdmin == 'admin' ? 'ПАНЕЛЬ АДМИНИСТРАТОРА' : 'ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ'}
         </div>
         <Button variant="btn btn-outline-danger" onClick={(e) => clickHandler(e)}>
           ВЫЙТИ

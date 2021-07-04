@@ -3,20 +3,13 @@ import Button from 'react-bootstrap/Button';
 import { getAdmin } from '../../../../store/auth/selectors';
 import { connect } from 'react-redux';
 import { actions } from '../../../../store/data/actions';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const AddForm = (props) => {
-  console.log('🚀 ~ file: AddForm.jsx ~ line 8 ~ AddForm ~ props', props);
-
   const [type, setType] = useState('');
   const [location, setLocation] = useState('');
   const [isOn, setIsOn] = useState('0');
   const [managerId, setSetManagerId] = useState('1');
-
-  console.log('🚀 ~ file: AddForm.jsx ~ line 11 ~ AddForm ~ type', type);
-  console.log('🚀 ~ file: AddForm.jsx ~ line 13 ~ AddForm ~ location', location);
-  console.log('🚀 ~ file: AddForm.jsx ~ line 15 ~ AddForm ~ isOn', isOn);
-  console.log('🚀 ~ file: AddForm.jsx ~ line 17 ~ AddForm ~ managerId', managerId);
 
   const changeTypeHandler = (e) => {
     setType(e.target.value);
@@ -36,7 +29,6 @@ const AddForm = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log('🚀 ~ file: AddForm.jsx ~ line 25 ~ clickHandler ~ e', e);
     props.addLight({
       type: type,
       location: location,
@@ -48,10 +40,6 @@ const AddForm = (props) => {
     setType('');
     setLocation('');
   };
-
-  // useEffect(() => {
-  //   props.logIn({ userName: 'Admin', password: 'Admin' }), [];
-  // });
 
   return (
     <div className=" mt-10">
@@ -103,13 +91,11 @@ const AddForm = (props) => {
 export const mapStateToProps = (state, props) => {
   return {
     props: props,
-    // error: getError(state),
     role: getAdmin(state),
   };
 };
 
 export const mapDispatchToProps = (dispatch) => ({
-  // changeLight: (payload) => dispatch(actions.changeLight(payload)),
   addLight: (payload) => dispatch(actions.addLight(payload)),
 });
 

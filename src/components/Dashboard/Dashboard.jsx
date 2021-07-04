@@ -1,15 +1,13 @@
-import UserPanel from './UserPanel';
-import AdminPanel from './AdminPanel';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { actions as authActions } from '../../store/auth/actions';
 import { getAdmin } from '../../store/auth/selectors';
 import { actions } from '../../store/data/actions';
-import { actions as authActions } from '../../store/auth/actions';
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import AdminPanel from './AdminPanel';
+import UserPanel from './UserPanel';
 
 const Dashboard = (props) => {
-  console.log('🚀 ~ file: Dashboard.jsx ~ line 8 ~ Dashboard ~ props', props);
-
   useEffect(() => {
     props.allLights();
     props.checkIsLogin();
@@ -42,7 +40,6 @@ export const mapStateToProps = (state, props) => {
 };
 
 export const mapDispatchToProps = (dispatch) => ({
-  // changeLight: (payload) => dispatch(actions.changeLight(payload)),
   allLights: (payload) => dispatch(actions.allLights(payload)),
   checkIsLogin: (payload) => dispatch(authActions.checkIsLogin(payload)),
 });

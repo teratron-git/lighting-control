@@ -8,5 +8,3 @@ export const actions = {
   addLight: createAction(constants.ADD_LIGHT),
   updateDataSuccess: createAction(constants.UPDATE_DATA_SUCCESS),
 };
-
-console.log('🚀 ~ file: actions.js ~ line 7 ~ changeLight', actions.changeLight.payload);

@@ -1,16 +1,14 @@
-import { takeEvery, call, put, select, delay } from 'redux-saga/effects';
-import { actions as logInActions } from './auth/actions';
-import { actions as dataActions } from './data/actions';
-import * as authConstants from './auth/constants';
-import * as dataConstants from './data/constants';
+import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { serv } from '../server';
+import { actions as logInActions } from './auth/actions';
+import * as authConstants from './auth/constants';
+import { actions as dataActions } from './data/actions';
+import * as dataConstants from './data/constants';
 
 let { logInSuccess, logInFailure, checkIsLogin } = logInActions;
-let { updateDataSuccess, allLights } = dataActions;
-// let { data } = dataActions;
+let { updateDataSuccess } = dataActions;
 
 const stateData = (state) => state;
-console.log('🚀 ~ file: sagas.js ~ line 11 ~ stateData', stateData);
 
 export const sendDataToServer = async (url, data) => {
   try {
@@ -53,13 +51,11 @@ function* logInSaga() {
     userName: data.auth.userName,
     password: data.auth.password,
   };
-  console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = `${serv}/api/login`;
 
+  const urlAuth = `${serv}/api/login`;
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
     if (result.success) {
-      console.log('🚀 ~ file: sagas.js ~ line 65 ~ function*logInSaga ~ result', result);
       yield put(logInSuccess(result));
       yield put(checkIsLogin());
     } else {
@@ -79,19 +75,17 @@ function* addLightSaga() {
     managerId: data.data.managerId,
     role: data.auth.role,
   };
-  console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = `${serv}/api/data`;
 
+  const urlAuth = `${serv}/api/data`;
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
     if (result) {
-      console.log('🚀 ~ file: sagas.js ~ line 65 ~ function*logInSaga ~ result', result);
       yield put(updateDataSuccess(result));
     } else {
       throw new Error(result.error);
     }
   } catch (error) {
-    // yield put(logInFailure(error.message));
+    console.log(error.message);
   }
 }
 
@@ -104,19 +98,17 @@ function* allLightsSaga() {
     managerId: data.data.managerId,
     role: data.auth.role,
   };
-  console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = `${serv}/api/allLights`;
 
+  const urlAuth = `${serv}/api/allLights`;
   try {
     const result = yield call(getDataFromServer, urlAuth, dataAuth);
     if (result) {
-      console.log('🚀 ~ file: sagas.js ~ line 65 ~ function*logInSaga ~ result', result);
       yield put(updateDataSuccess(result));
     } else {
       throw new Error(result.error);
     }
   } catch (error) {
-    // yield put(logInFailure(error.message));
+    console.log(error.message);
   }
 }
 
@@ -126,19 +118,17 @@ function* changeLightSaga() {
     id: data.data.id,
     isOn: data.data.isOn,
   };
-  console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = `${serv}/api/changeLight`;
 
+  const urlAuth = `${serv}/api/changeLight`;
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
     if (result.success) {
-      console.log('🚀 ~ file: sagas.js ~ line 65 ~ function*logInSaga ~ result', result);
       yield put(logInSuccess(result));
       yield put(checkIsLogin());
     } else {
       throw new Error(result.error);
     }
   } catch (error) {
-    // yield put(logInFailure(error.message));
+    console.log(error.message);
   }
 }

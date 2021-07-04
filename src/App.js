@@ -1,13 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import classNames from 'classnames';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import st from './App.module.css';
 import AppRouter from './components/AppRouter';
 import LoginPage from './components/LoginPage';
-import classNames from 'classnames';
 import { actions } from './store/auth/actions';
 import { getIsLoggedIn } from './store/auth/selectors';
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
 
 const App = (props) => {
   let { isLoggedIn, checkIsLogin } = props;
@@ -15,7 +15,7 @@ const App = (props) => {
   useEffect(() => {
     checkIsLogin();
   }, []);
-  console.log(props);
+
   return (
     <div className={classNames(st.app, isLoggedIn ? st.appDashboard : '')}>
       <BrowserRouter>

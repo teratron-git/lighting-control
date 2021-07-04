@@ -1,8 +1,7 @@
 import { actions } from './actions';
 
 let { data, changeLight, addLight, updateDataSuccess, allLights } = actions;
-
-const sData = JSON.parse(localStorage.getItem('lighting-control')) || { isLoggedIn: false };
+const sData = JSON.parse(sessionStorage.getItem('lighting-control')) || { isLoggedIn: false };
 
 const initialState = {
   id: '',
@@ -17,7 +16,6 @@ const initialState = {
 export const dataReducer = (state = initialState, action) => {
   switch (action.type) {
     case data.toString():
-      console.log('act', action);
       return {
         ...state,
         type: action?.payload?.type,
@@ -27,14 +25,12 @@ export const dataReducer = (state = initialState, action) => {
       };
 
     case allLights.toString():
-      console.log('act', action);
       return {
         ...state,
         ...action.payload,
       };
 
     case addLight.toString():
-      console.log('act', action);
       return {
         ...state,
         type: action.payload.type,
@@ -44,14 +40,12 @@ export const dataReducer = (state = initialState, action) => {
       };
 
     case updateDataSuccess.toString():
-      console.log('act', action);
       return {
         ...state,
         lights: [...action.payload],
       };
 
     case changeLight.toString():
-      console.log('act', action);
       return {
         ...state,
         id: action.payload.id,

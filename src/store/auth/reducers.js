@@ -1,8 +1,7 @@
 import { actions } from './actions';
 
 let { logIn, logOut, logInSuccess, logInFailure, checkIsLogin, logInErrorReset } = actions;
-
-const sData = JSON.parse(localStorage.getItem('lighting-control')) || { isLoggedIn: false };
+const sData = JSON.parse(sessionStorage.getItem('lighting-control')) || { isLoggedIn: false };
 
 const initialState = {
   id: '',
@@ -20,16 +19,14 @@ export const authReducer = (state = initialState, action) => {
     case logIn.toString():
       return {
         ...state,
-        // id: action.payload.id,
         userName: action.payload.userName,
         password: action.payload.password,
-        // role: action.payload.role,
         error: '',
         isLogging: true,
       };
 
     case logOut.toString():
-      localStorage.setItem('lighting-control', JSON.stringify({ isLoggedIn: false }));
+      sessionStorage.setItem('lighting-control', JSON.stringify({ isLoggedIn: false }));
 
       return {
         ...state,
@@ -52,7 +49,7 @@ export const authReducer = (state = initialState, action) => {
       return state;
 
     case logInSuccess.toString():
-      localStorage.setItem(
+      sessionStorage.setItem(
         'lighting-control',
         JSON.stringify({
           isLoggedIn: true,

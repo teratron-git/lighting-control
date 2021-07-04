@@ -1,6 +1,6 @@
-import { Redirect, Switch, Route, withRouter } from 'react-router-dom';
-import Header from '../../components/Dashboard/Header';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Dashboard from '../../components/Dashboard';
+import Header from '../../components/Dashboard/Header';
 
 const AppRouter = () => {
   return (
