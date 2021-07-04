@@ -124,8 +124,8 @@ app.post('/api/changeLight', urlencodedParser, async function (req, res, next) {
   );
 });
 
-app.listen(9999, function () {
-  console.log('CORS-enabled web server listening on port 9999');
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80');
 });
 
 app.use((req, res, next) => {

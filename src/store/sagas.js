@@ -3,6 +3,7 @@ import { actions as logInActions } from './auth/actions';
 import { actions as dataActions } from './data/actions';
 import * as authConstants from './auth/constants';
 import * as dataConstants from './data/constants';
+import { serv } from '../server';
 
 let { logInSuccess, logInFailure, checkIsLogin } = logInActions;
 let { updateDataSuccess, allLights } = dataActions;
@@ -53,7 +54,7 @@ function* logInSaga() {
     password: data.auth.password,
   };
   console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = 'http://localhost:9999/api/login';
+  const urlAuth = `${serv}/api/login`;
 
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
@@ -79,7 +80,7 @@ function* addLightSaga() {
     role: data.auth.role,
   };
   console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = 'http://localhost:9999/api/data';
+  const urlAuth = `${serv}/api/data`;
 
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
@@ -104,7 +105,7 @@ function* allLightsSaga() {
     role: data.auth.role,
   };
   console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = 'http://localhost:9999/api/allLights';
+  const urlAuth = `${serv}/api/allLights`;
 
   try {
     const result = yield call(getDataFromServer, urlAuth, dataAuth);
@@ -126,7 +127,7 @@ function* changeLightSaga() {
     isOn: data.data.isOn,
   };
   console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = 'http://localhost:9999/api/changeLight';
+  const urlAuth = `${serv}/api/changeLight`;
 
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
