@@ -1,19 +1,14 @@
 // Top secret config file :)
 // It visible for demo purposes only.
 
-let serv;
-if (process.env.NODE_ENV === 'production') {
-  serv = 'https://lighting-control-app.herokuapp.com';
-}
-if (process.env.NODE_ENV === 'development') {
-  serv = 'http://localhost';
-}
-
 module.exports = {
-  port: 9999,
-  serv: serv,
-  dbUrlProd: '',
-  dbUrlDev: '',
+  port: 80,
+  db: {
+    host: 'remotemysql.com',
+    user: '8VYRAWnfYD',
+    database: '8VYRAWnfYD',
+    password: 'BcZJLnWS95',
+  },
   jwt: {
     secret: 'test',
     tokens: {

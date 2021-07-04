@@ -44,6 +44,9 @@ const AddForm = (props) => {
       managerId: managerId,
       role: props.role,
     });
+
+    setType('');
+    setLocation('');
   };
 
   // useEffect(() => {
@@ -51,7 +54,7 @@ const AddForm = (props) => {
   // });
 
   return (
-    <div>
+    <div className=" mt-10">
       ДОБАВИТЬ НОВЫЙ ФОНАРЬ
       <Form onSubmit={(e) => submitHandler(e)}>
         <Form.Group className="mb-3">
@@ -61,6 +64,7 @@ const AddForm = (props) => {
             placeholder="Введите тип фонаря"
             value={type}
             onChange={(e) => changeTypeHandler(e)}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -70,10 +74,11 @@ const AddForm = (props) => {
             placeholder="Введите адрес"
             value={location}
             onChange={(e) => changeLocationHandler(e)}
+            required
           />
         </Form.Group>
         Выберите состояние света по умолчанию
-        <select className="form-select" onChange={(e) => changeIsOnHandler(e)}>
+        <select className="form-select mt-10" onChange={(e) => changeIsOnHandler(e)}>
           <option selected value="0">
             Выключено
           </option>
@@ -81,17 +86,16 @@ const AddForm = (props) => {
         </select>
         <br />
         Выберите менеджера
-        <select className="form-select" onChange={(e) => changeManagerHandler(e)}>
+        <select className="form-select mt-10" onChange={(e) => changeManagerHandler(e)}>
           <option selected value="1">
             User1
           </option>
           <option value="2">User2</option>
         </select>
-        <Button variant="primary" type="submit">
-          ВОЙТИ
+        <Button variant="btn btn-outline-success" type="submit" className="mt-10">
+          ДОБАВИТЬ ФОНАРЬ
         </Button>
       </Form>
-      {/* <span className="error">{props.error}</span> */}
     </div>
   );
 };

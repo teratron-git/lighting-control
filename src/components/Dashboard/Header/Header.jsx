@@ -25,7 +25,9 @@ const Header = (props) => {
         <div className={st('title')}>
           {props.isAdmin == 'admin' ? 'ПАНЕЛЬ АДМИНИСТРАТОРА' : 'ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ'}
         </div>
-        <Button onClick={(e) => clickHandler(e)}>ВЫЙТИ</Button>
+        <Button variant="btn btn-outline-danger" onClick={(e) => clickHandler(e)}>
+          ВЫЙТИ
+        </Button>
       </div>
     </div>
   );

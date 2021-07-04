@@ -4,6 +4,7 @@ import { getAdmin } from '../../../store/auth/selectors';
 import { connect } from 'react-redux';
 import styles from './Light.module.css';
 import classNames from 'classnames/bind';
+import Checkbox from '../Checkbox';
 
 const st = classNames.bind(styles);
 
@@ -13,40 +14,43 @@ const Light = (props) => {
   let [isOn, setIsOn] = useState(props.props.data.isOn);
 
   let { lights, changeLight, data, isAdmin } = props;
+  let users = ['', 'User1', 'User2'];
 
   useEffect(() => {
-    // data({});
-    setIsOn(props.props.data.id);
-    setIsOn(props.data.isOn);
+    setId(id);
+    setIsOn(props.props.data.isOn);
   }, []);
 
   const onChange = (e) => {
-    // e.target.value == '0' ? setIsOn('0') : setIsOn('1');
-    // setId(props.props.data.id);
-    // console.log('ON ID ', on, id, e.target.value);
-
+    console.log('🚀 ~ file: Light.jsx ~ line 30 ~ onChange ~   e.target.value', e.target.value);
+    console.log('🚀 ~ file: Light.jsx ~ line 30 ~ onChange ~   e.target.checked', e.target.checked);
+    console.log(
+      '🚀 ~ file: Light.jsx ~ line 30 ~ onChange ~   e.target.defaultChecked',
+      e.target.defaultChecked
+    );
+    setIsOn(e.target.checked);
     changeLight({
       id: props.props.data.id,
-      isOn: props.props.data.isOn == '0' ? '1' : '0',
+      isOn: e.target.checked,
     });
   };
 
   return (
     <div className={st('light')}>
-      {props.props.data.id} {props.props.data.type} {props.props.data.location}
-      {props.props.data.isOn ? 'ВКЛ' : 'ВЫКЛ'} {props.props.data.managerId}
+      <span className={st('descr')}>Тип фонаря: </span>
+      <span>{props.props.data.type}</span>
+      <span className={st('descr')}>Адрес: </span>
+      <span>{props.props.data.location} </span>
+      <span className={st('descr')}>Менеждер: </span>
+      <span>{users[props.props.data.managerId]}</span>
+
       {!(isAdmin == 'admin') ? (
-        <span className="form-check form-switch">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            defaultChecked={isOn}
-            value={isOn}
-            onChange={(e) => onChange(e)}
-          />
-        </span>
+        <Checkbox isOn={isOn} onChange={onChange} />
       ) : (
-        false
+        <>
+          <span className={st('descr')}>Статус: </span>
+          <span>{props.props.data.isOn ? 'Включен' : 'Выключен'} </span>
+        </>
       )}
     </div>
   );

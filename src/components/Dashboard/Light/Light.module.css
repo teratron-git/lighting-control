@@ -1,8 +1,21 @@
 .light {
   /* font-size: 1.6em; */
   width: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 5px;
+  border-radius: 5px;
 }
 
 .light > span {
   display: inline;
+  padding: 0 10px;
+}
+
+.descr {
+  font-size: small;
+  color: blanchedalmond;
+}
+.descr + span {
+  margin-right: 10px;
 }

@@ -3,13 +3,17 @@ import { getAllData } from '../../../store/data/selectors';
 import { connect } from 'react-redux';
 import Light from '../Light';
 import AddForm from './AddForm';
+import styles from './AdminPanel.module.css';
+import classNames from 'classnames/bind';
+
+const st = classNames.bind(styles);
 
 const AdminPanel = (props) => {
   console.log('AdminPanel ~ props', props);
 
   return (
-    <div className={'AdminPanel'}>
-      <div>ADMIN PANEL</div>
+    <div className={st('adminPanel')}>
+      {/* <div className="mtb-20">ADMIN PANEL</div> */}
       <AddForm />
       <br />
       <ul>

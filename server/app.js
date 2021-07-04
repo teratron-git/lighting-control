@@ -5,6 +5,8 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const path = require('path');
+const bcrypt = require('bcrypt');
+const config = require('../config/serverConfig');
 
 app.use(cors());
 app.options('*', cors());
@@ -14,79 +16,76 @@ app.use(express.static(path.join(__dirname, '..', 'build')));
 
 const connection = mysql.createPool({
   connectionLimit: 5,
-  host: 'remotemysql.com',
-  user: '8VYRAWnfYD',
-  database: '8VYRAWnfYD',
-  password: 'BcZJLnWS95',
+  host: config.db.host,
+  user: config.db.user,
+  database: config.db.database,
+  password: config.db.password,
+});
+
+app.listen(config.port, function () {
+  console.log(`Сервер с CORS на порту ${config.port} запущен!`);
 });
 
 app.get('/api/allLights', async function (req, res, next) {
-  connection.execute('SELECT * FROM lights ORDER BY id DESC', function (err, results) {
-    console.log(err);
-    console.log(results);
-
-    res.json(results);
-  });
+  try {
+    await connection.execute('SELECT * FROM lights ORDER BY id DESC', function (err, results) {
+      if (err) return new Error(`Ошибка при работе с БД!`);
+      res.json(results);
+    });
+  } catch (err) {
+    res.json({ message: err.message });
+    next(err);
+  }
 });
 
 app.post('/api/login', urlencodedParser, async function (req, res, next) {
-  const { userName, password } = req.body;
-  console.log('🚀 ~ file: app.js ~ line 48 ~ password', password);
-  console.log('🚀 ~ file: app.js ~ line 48 ~ userName', userName);
   try {
-    connection.execute(
+    if (!req.body) return new Error(`Необходимые данные на сервер не переданы!`);
+    const { userName, password } = req.body;
+
+    await connection.execute(
       'SELECT password FROM users WHERE userName = ?',
       [userName],
       function (err, results) {
-        if (err) return console.log(err);
+        if (err) return new Error(`Ошибка при работе с БД!`);
+        let bdPass = results[0]?.password || '';
+        const isValidPass = bcrypt.compareSync(password, bdPass);
 
-        let bdPass = results[0]?.password;
-        console.log('🚀 ~ file: app.js ~ line 54 ~ results', results);
-        if (bdPass === password) {
-          console.log('Пароль верный', bdPass, password);
+        if (isValidPass) {
           connection.execute(
             'SELECT id, userName, role FROM users WHERE userName= ? ORDER BY id DESC',
             [userName],
             function (err, results) {
-              if (err) return console.log(err);
-              console.log(results);
+              if (err) return new Error(`Ошибка при работе с БД!`);
               res.json({ ...results[0], success: true });
             }
           );
         } else {
-          console.log('Пароль неверный', bdPass, password);
           res.json({ success: false, error: 'Неверные учетные данные!' });
         }
       }
     );
   } catch (err) {
-    res.status(401).json({ message: err.message });
-    next();
+    res.json({ message: err.message });
+    next(err);
   }
 });
 
 app.post('/api/data', urlencodedParser, async function (req, res, next) {
-  const { type, location, isOn, managerId, role } = req.body;
-  console.log('🚀 ~ file: app.js ~ line 84 ~ role', role);
-  console.log('🚀 ~ file: app.js ~ line 84 ~ managerId', managerId);
-  console.log('🚀 ~ file: app.js ~ line 84 ~ isOn', isOn);
-  console.log('🚀 ~ file: app.js ~ line 84 ~ location', location);
-  console.log('🚀 ~ file: app.js ~ line 84 ~ type', type);
-  if (role === 'admin') {
+  try {
+    if (!req.body) return new Error(`Необходимые данные на сервер не переданы!`);
+    const { type, location, isOn, managerId } = req.body;
+
     await connection.execute(
       'INSERT INTO lights (`type`, `location`, `isOn`, `managerId`) VALUES (?,?,?,?)',
       [type, location, isOn, managerId],
       async function (err, results) {
-        if (err) return console.log(err);
-        console.log(err);
-        console.log(results);
+        if (err) return new Error(`Ошибка при работе с БД!`);
         if (results) {
           await connection.execute(
             'SELECT * FROM lights ORDER BY id DESC',
             function (err, results) {
-              if (err) return console.log(err);
-              console.log(err);
-              console.log(results);
+              if (err) return new Error(`Ошибка при работе с БД!`);
               if (results) {
                 res.json(results);
               }
@@ -95,52 +94,42 @@ app.post('/api/data', urlencodedParser, async function (req, res, next) {
         }
       }
     );
+  } catch (err) {
+    res.json({ message: err.message });
+    next(err);
   }
 });
 
 app.post('/api/changeLight', urlencodedParser, async function (req, res, next) {
-  const { id, isOn } = req.body;
-  console.log('🚀 ~ file: app.js ~ line 103 ~ isOn', isOn);
-  console.log('🚀 ~ file: app.js ~ line 103 ~ id', id);
+  try {
+    if (!req.body) return new Error(`Необходимые данные на сервер не переданы!`);
+    const { id, isOn } = req.body;
 
-  await connection.execute(
-    'UPDATE lights SET isOn=? WHERE id=?',
-    [isOn, id],
-    async function (err, results) {
-      if (err) return console.log(err);
-      console.log(err);
-      console.log(results);
-      if (results) {
-        await connection.execute('SELECT * FROM lights ORDER BY id DESC', function (err, results) {
-          if (err) return console.log(err);
-          console.log(err);
-          console.log(results);
-          if (results) {
-            res.json(results);
-          }
-        });
+    await connection.execute(
+      'UPDATE lights SET isOn=? WHERE id=?',
+      [isOn, id],
+      async function (err, results) {
+        if (err) return new Error(`Ошибка при работе с БД!`);
+        if (results) {
+          await connection.execute(
+            'SELECT * FROM lights ORDER BY id DESC',
+            function (err, results) {
+              if (err) return new Error(`Ошибка при работе с БД!`);
+              if (results) {
+                res.json(results);
+              }
+            }
+          );
+        }
       }
-    }
-  );
+    );
+  } catch (err) {
+    res.json({ message: err.message });
+    next(err);
+  }
 });
 
-app.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80');
-});
-
-app.use((req, res, next) => {
-  const err = new Error('Такая страница не найдена!');
-  err.status = 404;
-  next(err);
-});
-app.use((err, req, res) => {
-  res.status(err.status || 500);
+app.use((err, req, res, next) => {
+  res.status(500);
   res.render('error', { message: err.message });
 });
-
-// connection.end(function (err) {
-//   if (err) {
-//     return console.log('Ошибка: ' + err.message);
-//   }
-//   console.log('Подключение закрыто');
-// });

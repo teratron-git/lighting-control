@@ -20,7 +20,7 @@ const UserPanel = (props) => {
 
   return (
     <div className={'userPanel'}>
-      <div>Пользователь: {props.getUserName}</div>
+      <div className="mtb-20">Пользователь: {props.getUserName}</div>
       <ul>
         {mapLights.map((item) => (
           <Light key={item.id} data={item}></Light>

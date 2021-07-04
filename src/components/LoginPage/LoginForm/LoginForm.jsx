@@ -4,6 +4,10 @@ import { getError } from '../../../store/auth/selectors';
 import { connect } from 'react-redux';
 import { actions } from '../../../store/auth/actions';
 import { useEffect, useState } from 'react';
+import styles from './LoginForm.module.css';
+import classNames from 'classnames/bind';
+
+const st = classNames.bind(styles);
 
 const LoginForm = (props) => {
   console.log('🚀 ~ file: LoginForm.jsx ~ line 8 ~ LoginForm ~ props', props);
@@ -30,26 +34,34 @@ const LoginForm = (props) => {
   // });
 
   return (
-    <div>
-      ФОРМА АВТОРИЗАЦИИ
-      <Form onSubmit={(e) => submitHandler(e)}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+    <div className={st('loginForm')}>
+      <div className={st('title')}>Удаленное управление освещением</div>В системе зарегистрированы
+      три пользователя:
+      <div className={st('loginForm_cred')}>
+        Имя: <b>Admin</b>, пароль: <b>Admin</b> для входа под администратором
+        <br /> Имя: <b>User1</b>, пароль: <b>User1</b> для входа под Пользователем1
+        <br /> Имя: <b>User2</b>, пароль: <b>User2</b> для входа под Пользователем2
+      </div>
+      <Form onSubmit={(e) => submitHandler(e)} required>
+        <Form.Group className="mb-3 center w-200" controlId="formBasicEmail">
+          <Form.Label>Имя пользователя</Form.Label>
           <Form.Control
             type="userName"
-            placeholder="Enter username"
+            placeholder="Ведите имя"
             value={userName}
             onChange={(e) => changeEmailHandler(e)}
+            required
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+        <Form.Group className="mb-3 center w-200" controlId="formBasicPassword">
+          <Form.Label>Пароль</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="Введите пароль"
             value={password}
             onChange={(e) => changePasswordHandler(e)}
+            required
           />
         </Form.Group>
         <Button variant="primary" type="submit">

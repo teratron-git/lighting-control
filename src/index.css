@@ -13,3 +13,18 @@ body {
 .error {
   color: red;
 }
+
+.mtb-20 {
+  margin: 20px 0;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.w-200 {
+  width: 200px;
+}
+.center {
+  margin: 0 auto;
+}
