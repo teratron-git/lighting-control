@@ -46,7 +46,7 @@ const LoginForm = (props) => {
           <Form.Label>Имя пользователя</Form.Label>
           <Form.Control
             type="userName"
-            placeholder="Ведите имя"
+            placeholder="Введите имя"
             value={userName}
             onChange={(e) => changeEmailHandler(e)}
             required
