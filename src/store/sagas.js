@@ -41,7 +41,7 @@ export const getDataFromServer = async (url) => {
 
 export function* rootSaga() {
   yield takeEvery(authConstants.LOGIN, logInSaga);
-  // yield takeEvery(dataConstants.CHANGE_LIGHT, changeLightSaga);
+  yield takeEvery(dataConstants.CHANGE_LIGHT, changeLightSaga);
   yield takeEvery(dataConstants.ADD_LIGHT, addLightSaga);
   yield takeEvery(dataConstants.ALL_LIGHTS, allLightsSaga);
 }
@@ -53,7 +53,7 @@ function* logInSaga() {
     password: data.auth.password,
   };
   console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = 'https://lighting-control-app.herokuapp.com/api/login';
+  const urlAuth = 'http://localhost:9999/api/login';
 
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
@@ -119,25 +119,25 @@ function* allLightsSaga() {
   }
 }
 
-// function* changeLightSaga() {
-//   let result = {
-//     lights: [
-//       {
-//         id: '1',
-//         type: 'Марка1',
-//         location: 'Калуга',
-//         isOn: true,
-//         manager: 'петя',
-//       },
-//       {
-//         id: '2',
-//         type: 'Марка2',
-//         location: 'Калуга2',
-//         isOn: false,
-//         manager: 'вася',
-//       },
-//     ],
-//   };
-//   console.log('changeLightSaga', result);
-//   yield put(data(result));
-// }
+function* changeLightSaga() {
+  const data = yield select(stateData);
+  const dataAuth = {
+    id: data.data.id,
+    isOn: data.data.isOn,
+  };
+  console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
+  const urlAuth = 'http://localhost:9999/api/changeLight';
+
+  try {
+    const result = yield call(sendDataToServer, urlAuth, dataAuth);
+    if (result.success) {
+      console.log('🚀 ~ file: sagas.js ~ line 65 ~ function*logInSaga ~ result', result);
+      yield put(logInSuccess(result));
+      yield put(checkIsLogin());
+    } else {
+      throw new Error(result.error);
+    }
+  } catch (error) {
+    // yield put(logInFailure(error.message));
+  }
+}

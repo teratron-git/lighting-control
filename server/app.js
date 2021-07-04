@@ -20,8 +20,6 @@ const connection = mysql.createPool({
   password: 'BcZJLnWS95',
 });
 
-// app.use(express.static(path.join(__dirname, '..', 'build')));
-
 app.get('/api/allLights', async function (req, res, next) {
   connection.execute('SELECT * FROM lights ORDER BY id DESC', function (err, results) {
     console.log(err);
@@ -94,11 +92,36 @@ app.post('/api/data', urlencodedParser, async function (req, res, next) {
               }
             }
           );
-          // res.json(results);
         }
       }
     );
   }
+});
+
+app.post('/api/changeLight', urlencodedParser, async function (req, res, next) {
+  const { id, isOn } = req.body;
+  console.log('🚀 ~ file: app.js ~ line 103 ~ isOn', isOn);
+  console.log('🚀 ~ file: app.js ~ line 103 ~ id', id);
+
+  await connection.execute(
+    'UPDATE lights SET isOn=? WHERE id=?',
+    [isOn, id],
+    async function (err, results) {
+      if (err) return console.log(err);
+      console.log(err);
+      console.log(results);
+      if (results) {
+        await connection.execute('SELECT * FROM lights ORDER BY id DESC', function (err, results) {
+          if (err) return console.log(err);
+          console.log(err);
+          console.log(results);
+          if (results) {
+            res.json(results);
+          }
+        });
+      }
+    }
+  );
 });
 
 app.listen(9999, function () {
