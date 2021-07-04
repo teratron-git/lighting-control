@@ -53,7 +53,7 @@ function* logInSaga() {
     password: data.auth.password,
   };
   console.log('🚀 ~ file: sagas.js ~ line 55 ~ function*logInSaga ~ dataAuth', dataAuth);
-  const urlAuth = 'https://lighting-control-app.herokuapp.com:9999/api/login';
+  const urlAuth = 'https://lighting-control-app.herokuapp.com/api/login';
 
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
