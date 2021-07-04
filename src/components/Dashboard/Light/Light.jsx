@@ -20,7 +20,7 @@ const Light = (props) => {
 
   return (
     <div className={st('light')}>
-      <span className={st('descr')}>Тип фонаря: </span>
+      <span className={st('descr')}>Марка фонаря: </span>
       <span>{props.props.data.type}</span>
       <span className={st('descr')}>Адрес: </span>
       <span>{props.props.data.location} </span>
