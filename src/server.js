@@ -3,9 +3,9 @@
 
 let serv = 'https://platinum-candy-responsibility.glitch.me';
 
-// if (process.env.NODE_ENV === 'development') {
-//   serv = 'http://localhost';
-// }
+if (process.env.NODE_ENV === 'development') {
+  serv = 'http://localhost';
+}
 
 module.exports = {
   serv: serv,
