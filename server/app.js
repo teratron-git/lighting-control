@@ -19,8 +19,8 @@ const connection = mysql.createPool({
   password: config.db.password,
 });
 
-app.listen(config.port, function () {
-  console.log(`Сервер с CORS на порту ${config.port} запущен!`);
+app.listen(process.env.PORT || config.port, function () {
+  console.log(`Сервер с CORS на порту ${server.address().port} запущен!`);
 });
 
 app.get('/api/allLights', async function (req, res, next) {
