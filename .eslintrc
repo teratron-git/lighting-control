@@ -21,7 +21,7 @@
 
   "extends": "eslint:recommended",
   "rules": {
-    "indent": [1, 2],
+    "indent": [0, 2],
     "quotes": [1, "single"],
     "semi": [1, "always", { "omitLastInOneLineBlock": true }],
     "no-unused-vars": "off"

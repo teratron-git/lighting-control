@@ -1,7 +1,13 @@
 # Lighting control app
 
-Чтобы поднять локально нужно запустить в двух консолях следующие команды:
+Чтобы поднять приложение локально нужно сделать
 
-`npm start` - поднимает фронт
+`npm i`
+
+, а затем запустить в следующие команды (двух разных консолях):
+
+`npm run front` - поднимает фронт
 
 `npm run dev` - поднимает бэк
+
+**Demo**: [https://lighting-control-app.herokuapp.com](https://lighting-control-app.herokuapp.com 'Demo Lighting control app')

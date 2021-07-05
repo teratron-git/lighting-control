@@ -37,7 +37,8 @@
     "prettier": "^2.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/app.js",
+    "front": "react-scripts start",
     "dev": "cross-env NODE_ENV=development nodemon server/app.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
