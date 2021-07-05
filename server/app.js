@@ -19,15 +19,17 @@ const connection = mysql.createPool({
   password: config.db.password,
 });
 
-app.listen(config.port, function () {
-  console.log(`Сервер  запущен!`);
+app.listen(process.env.PORT || config.port, function () {
+  console.log(`Сервер запущен!`);
 });
 
 app.get('/api/allLights', async function (req, res, next) {
   try {
     await connection.execute('SELECT * FROM lights ORDER BY id DESC', function (err, results) {
       if (err) return new Error(`Ошибка при работе с БД!`);
-      res.json(results);
+      if (results) {
+        res.json(results);
+      }
     });
   } catch (err) {
     res.json({ message: err.message });
@@ -45,9 +47,11 @@ app.post('/api/login', urlencodedParser, async function (req, res, next) {
       [userName],
       function (err, results) {
         if (err) return new Error(`Ошибка при работе с БД!`);
-        let bdPass = results[0]?.password || '';
-        const isValidPass = bcrypt.compareSync(password, bdPass);
-
+        let isValidPass = '';
+        if (results && results[0] && results[0].password) {
+          let bdPass = results[0].password || '';
+          isValidPass = bcrypt.compareSync(password, bdPass);
+        }
         if (isValidPass) {
           connection.execute(
             'SELECT id, userName, role FROM users WHERE userName= ? ORDER BY id DESC',
