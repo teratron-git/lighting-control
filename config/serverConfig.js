@@ -2,7 +2,7 @@
 // It visible for demo purposes only.
 
 module.exports = {
-  port: 3001,
+  port: 3000,
   db: {
     host: 'remotemysql.com',
     user: '8VYRAWnfYD',
