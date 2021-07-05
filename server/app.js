@@ -1,10 +1,11 @@
 let express = require('express');
+let path = require('path');
 let cors = require('cors');
-let app = express();
 let mysql = require('mysql2');
+let bcrypt = require('bcrypt');
 let bodyParser = require('body-parser');
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
-let bcrypt = require('bcrypt');
+let app = express();
 let config = require('../config/serverConfig');
 
 app.use(cors());
@@ -128,6 +129,11 @@ app.post('/api/changeLight', urlencodedParser, async function (req, res, next) {
     res.json({ message: err.message });
     next(err);
   }
+});
+
+app.use(express.static(path.join(__dirname, '..', 'build')));
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
 app.use((err, req, res, next) => {
