@@ -76,7 +76,7 @@ function* addLightSaga() {
     role: data.auth.role,
   };
 
-  const urlAuth = `${serv}/api/data`;
+  const urlAuth = `${serv}/api/addLight`;
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
     if (result) {
@@ -96,10 +96,9 @@ function* allLightsSaga() {
     location: data.data.location,
     isOn: data.data.isOn,
     managerId: data.data.managerId,
-    role: data.auth.role,
   };
 
-  const urlAuth = `${serv}/api/allLights`;
+  const urlAuth = `${serv}/api/getAllLights`;
   try {
     const result = yield call(getDataFromServer, urlAuth, dataAuth);
     if (result) {
@@ -119,7 +118,7 @@ function* changeLightSaga() {
     isOn: data.data.isOn,
   };
 
-  const urlAuth = `${serv}/api/changeLight`;
+  const urlAuth = `${serv}/api/changeLightStatus`;
   try {
     const result = yield call(sendDataToServer, urlAuth, dataAuth);
     if (result.success) {
