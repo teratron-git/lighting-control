@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { connect } from 'react-redux';
 import { actions } from '../../../store/auth/actions';
-import { getError } from '../../../store/auth/selectors';
+import { getError, getIsLogging } from '../../../store/auth/selectors';
 import styles from './LoginForm.module.css';
 
 const st = classNames.bind(styles);
@@ -12,6 +12,8 @@ const st = classNames.bind(styles);
 const LoginForm = (props) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+
+  const { error, isLogging } = props;
 
   const changeEmailHandler = (e) => {
     setUserName(e.target.value);
@@ -63,19 +65,27 @@ const LoginForm = (props) => {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          ВОЙТИ
-        </Button>
+        <div className={st('buttonSpinner')}>
+          {isLogging ? (
+            <div className="spinner-border" role="status">
+              <span className="sr-only"></span>
+            </div>
+          ) : (
+            <Button variant="primary" type="submit">
+              ВОЙТИ
+            </Button>
+          )}
+        </div>
       </Form>
-      <span className="error">{props.error}&nbsp; </span>
+      <span className="error">{error}&nbsp; </span>
     </div>
   );
 };
 
-export const mapStateToProps = (state, props) => {
+export const mapStateToProps = (state) => {
   return {
-    props: props,
     error: getError(state),
+    isLogging: getIsLogging(state),
   };
 };
 

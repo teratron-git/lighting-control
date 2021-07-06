@@ -9,11 +9,11 @@ const st = classNames.bind(styles);
 
 const Light = (props) => {
   let users = ['', 'User1', 'User2'];
-  let { changeLight, isAdmin } = props;
+  let { changeLight, isAdmin, ownProps } = props;
 
   const onChange = (e) => {
     changeLight({
-      id: props.props.data.id,
+      id: ownProps.data.id,
       isOn: e.target.checked,
     });
   };
@@ -21,27 +21,27 @@ const Light = (props) => {
   return (
     <div className={st('light')}>
       <span className={st('descr')}>Марка фонаря: </span>
-      <span>{props.props.data.type}</span>
+      <span>{ownProps.data.type}</span>
       <span className={st('descr')}>Адрес: </span>
-      <span>{props.props.data.location} </span>
+      <span>{ownProps.data.location} </span>
       <span className={st('descr')}>Менеждер: </span>
-      <span>{users[props.props.data.managerId]}</span>
+      <span>{users[ownProps.data.managerId]}</span>
 
       {!(isAdmin == 'admin') ? (
-        <Checkbox isOn={props.props.data.isOn} onChange={onChange} />
+        <Checkbox isOn={ownProps.data.isOn} onChange={onChange} />
       ) : (
         <>
           <span className={st('descr')}>Статус: </span>
-          <span>{props.props.data.isOn ? 'Включен' : 'Выключен'} </span>
+          <span>{ownProps.data.isOn ? 'Включен' : 'Выключен'} </span>
         </>
       )}
     </div>
   );
 };
 
-export const mapStateToProps = (state, props) => {
+export const mapStateToProps = (state, ownProps) => {
   return {
-    props: props,
+    ownProps,
     isAdmin: getAdmin(state),
   };
 };

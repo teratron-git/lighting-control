@@ -19,9 +19,8 @@ const UserPanel = (props) => {
   );
 };
 
-export const mapStateToProps = (state, props) => {
+export const mapStateToProps = (state) => {
   return {
-    props,
     allData: getAllData(state),
     getUserName: getUserName(state),
     getUserId: getUserId(state),

@@ -32,9 +32,8 @@ const Dashboard = (props) => {
   );
 };
 
-export const mapStateToProps = (state, props) => {
+export const mapStateToProps = (state) => {
   return {
-    props: props,
     isAdmin: getAdmin(state),
   };
 };

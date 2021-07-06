@@ -1,6 +1,5 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { getAdmin } from '../../../../store/auth/selectors';
 import { connect } from 'react-redux';
 import { actions } from '../../../../store/data/actions';
 import { useState } from 'react';
@@ -11,21 +10,13 @@ const AddForm = (props) => {
   const [isOn, setIsOn] = useState('0');
   const [managerId, setSetManagerId] = useState('1');
 
-  const changeTypeHandler = (e) => {
-    setType(e.target.value);
-  };
+  const changeTypeHandler = (e) => setType(e.target.value);
 
-  const changeLocationHandler = (e) => {
-    setLocation(e.target.value);
-  };
+  const changeLocationHandler = (e) => setLocation(e.target.value);
 
-  const changeIsOnHandler = (e) => {
-    setIsOn(e.target.value);
-  };
+  const changeIsOnHandler = (e) => setIsOn(e.target.value);
 
-  const changeManagerHandler = (e) => {
-    setSetManagerId(e.target.value);
-  };
+  const changeManagerHandler = (e) => setSetManagerId(e.target.value);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -34,7 +25,6 @@ const AddForm = (props) => {
       location: location,
       isOn: isOn,
       managerId: managerId,
-      role: props.role,
     });
 
     setType('');
@@ -66,18 +56,22 @@ const AddForm = (props) => {
           />
         </Form.Group>
         Выберите состояние света по умолчанию
-        <select className="form-select mt-10" onChange={(e) => changeIsOnHandler(e)}>
-          <option selected value="0">
-            Выключено
-          </option>
+        <select
+          className="form-select mt-10"
+          defaultValue={isOn}
+          onChange={(e) => changeIsOnHandler(e)}
+        >
+          <option value="0">Выключено</option>
           <option value="1">Включено</option>
         </select>
         <br />
         Выберите менеджера
-        <select className="form-select mt-10" onChange={(e) => changeManagerHandler(e)}>
-          <option selected value="1">
-            User1
-          </option>
+        <select
+          className="form-select mt-10"
+          defaultValue={managerId}
+          onChange={(e) => changeManagerHandler(e)}
+        >
+          <option value="1">User1</option>
           <option value="2">User2</option>
         </select>
         <Button variant="btn btn-outline-success" type="submit" className="mt-10">
@@ -88,15 +82,8 @@ const AddForm = (props) => {
   );
 };
 
-export const mapStateToProps = (state, props) => {
-  return {
-    props: props,
-    role: getAdmin(state),
-  };
-};
-
 export const mapDispatchToProps = (dispatch) => ({
   addLight: (payload) => dispatch(actions.addLight(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
+export default connect(null, mapDispatchToProps)(AddForm);
