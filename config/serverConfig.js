@@ -4,10 +4,10 @@
 module.exports = {
   port: 3001,
   db: {
-    host: 'remotemysql.com',
-    user: '8VYRAWnfYD',
-    database: '8VYRAWnfYD',
-    password: 'BcZJLnWS95',
+    host: 'sql4.freesqldatabase.com',
+    user: 'sql4464926',
+    database: 'sql4464926',
+    password: 'DQdj6dpJIJ',
   },
   jwt: {
     secret: 'test',
