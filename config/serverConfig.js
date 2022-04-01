@@ -4,10 +4,10 @@
 module.exports = {
   port: 3001,
   db: {
-    host: 'vh224.spaceweb.ru',
-    user: 'terraband_light',
-    database: 'terraband_light',
-    password: '123qweQWE',
+    host: 'sql11.freesqldatabase.com',
+    user: 'sql11482333',
+    database: 'sql11482333',
+    password: 'AiIzGKBha1',
   },
   jwt: {
     secret: 'test',
